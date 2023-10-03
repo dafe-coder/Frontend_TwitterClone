@@ -1,12 +1,11 @@
 import React from 'react';
 import {Button} from '@mui/material';
-import {makeStyles} from '@mui/styles';
 import {SvgIcon} from '../svgs/';
 import theme from '../Theme';
 import {Typography} from '@mui/material';
 import {LoginModal, RegisterModal} from '../Components/modals';
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
     wrap: {
         display: 'flex',
         height: '100vh'
@@ -19,17 +18,16 @@ const useStyles = makeStyles((theme) => ({
     rightBlock: {
         padding: '50px 35px'
     }
-}));
+};
 
 export const SignIn: React.FC = (): React.ReactElement => {
-    const classes = useStyles();
     const [openRegister, setOpenRegister] = React.useState(false);
     const [openLogin, setOpenLogin] = React.useState(false);
 
     return (
-        <div className={classes.wrap}>
-            <div className={classes.blueBox}></div>
-            <div className={classes.rightBlock}>
+        <div style={styles.wrap}>
+            <div style={styles.blueBox}></div>
+            <div style={styles.rightBlock}>
                 <SvgIcon height={45} fill={theme.palette.primary.main} type='logo'/>
                 <Typography
                     sx={{

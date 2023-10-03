@@ -12,17 +12,17 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         listStyle: 'none',
         padding: 0,
-        '& > *:not(:last-child)': {
-            marginRight: theme.spacing(1),
-        },
+        // '& > *:not(:last-child)': {
+        //     marginRight: theme.spacing(1),
+        // },
         marginBottom: 0,
         marginLeft: -8,
         marginTop: 0
     },
     navLink: {
-        '&:hover svg': {
-            color: theme.palette.primary.main
-        },
+        // '&:hover svg': {
+        //     color: theme.palette.primary.main
+        // },
         '& svg': {
             fontSize: 20,
         }

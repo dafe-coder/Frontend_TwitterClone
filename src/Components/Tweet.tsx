@@ -1,8 +1,9 @@
-import { Avatar, Grid, Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { grey } from '@mui/material/colors';
 import { TweetNav } from './TweetNav';
+import Grid from '@mui/material/Grid';
 
 const useStyle = makeStyles((theme) => ({
     tweetItem: {
@@ -37,12 +38,12 @@ export const Tweet: React.FC<TweetProps> = ({user, text}):React.ReactElement => 
     const classes = useStyle()
 return (
 <div className={classes.tweetItem}>
-    <Grid container>
-        <Grid item xs={1}>
+    <Grid container flexWrap='nowrap'>
+        <Grid laptop={2}>
             <Avatar 
             sx={{ width: 46, height: 46 }} className={classes.tweetAvatar} alt={`Avatar ${user.userName}`} src={user.userAvatarUrl} />
         </Grid>
-        <Grid item xs={10}>
+        <Grid laptop={10} >
             <div style={{marginLeft: 25}}>
                 <Typography gutterBottom>
                     {user.userName} <span className={classes.userName}>{user.login} · 4h</span>

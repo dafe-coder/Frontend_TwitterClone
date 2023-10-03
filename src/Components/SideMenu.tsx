@@ -1,5 +1,4 @@
 import React from 'react';
-import {useStyleHome} from '../Pages';
 import {Button, IconButton, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,7 +12,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import {AddTweetModal} from './modals/AddTweetModal';
 
 type SideMenuProps = {
-    classes: ReturnType < typeof useStyleHome >
+    classes: any
 }
 
 const menus = [
@@ -51,7 +50,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({classes}): React.ReactElement
         <div className = {
         classes.logo
     } > <IconButton color = 'primary' > <TwitterIcon color = 'primary' fontSize = 'medium' /> </IconButton></div> {
-        menus.map(link => <ListItemButton className = {
+        menus.map((link, i) => <ListItemButton key={i} className = {
             classes.sideLink
         }
         sx = {{ borderRadius: 50, p: 0, minHeight: 32, color: 'rgba(255,255,255,.8)' }} > <ListItemIcon sx = {{ p:0, m:0, minWidth: 'auto', marginRight: 'px' }} > <IconButton color = 'primary' > {

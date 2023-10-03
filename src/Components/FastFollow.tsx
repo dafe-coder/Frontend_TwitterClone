@@ -1,17 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
 import { BoxSide } from './UI';
 import { List } from '@mui/material';
 import { FollowItem } from './FollowItem';
 
-const useStyles = makeStyles((theme) => ({
-    followWrap: {
 
-    }
-}))
 
 export const FastFollow:React.FC = (): React.ReactElement => {
-    const classes = useStyles()
     return (
         <BoxSide title='Who to follow'>
             <List disablePadding>

@@ -1,30 +1,30 @@
 import React from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import {useStylesTrends} from './Trends';
 import {ListItem, ListItemButton, Typography} from '@mui/material';
+import { StylesTrends } from './Trends';
 
 type TrendsItemType = {
-    classes: ReturnType < typeof useStylesTrends >,
+    styles: any,
     count?: string,
     hashtag: string,
     title: string
 }
 
 export const TrendsItem: React.FC<TrendsItemType> = ({
-    classes,
+    styles,
     title,
     hashtag,
     count = ''
 }) => {
-    return (< ListItem className = {
-        classes.trendsItem
-    } > <ListItemButton sx={{px: 2, flexDirection: 'column', alignItems: 'flex-start'}}> < span className = {
-        classes.moreBtn
+    return (< ListItem style = {
+        styles.trendsItem
+    } > <ListItemButton sx={{px: 2, flexDirection: 'column', alignItems: 'flex-start'}}> < span style = {
+        styles.moreBtn
     } > <MoreHorizIcon/></span> < Typography gutterBottom fontSize = {
         14
     }
-    className = {
-        classes.textGray
+    style = {
+        styles.textGray
     } > {
         title
     }</Typography> < Typography gutterBottom fontWeight = {
@@ -35,8 +35,8 @@ export const TrendsItem: React.FC<TrendsItemType> = ({
     } >#{
         hashtag
     }</Typography> {
-        count !== '' && <Typography className = {
-            classes.textGray
+        count !== '' && <Typography style = {
+            styles.textGray
         }
         variant = 'body2' > {
             count

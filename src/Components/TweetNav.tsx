@@ -6,8 +6,9 @@ import RepeatIcon from '@mui/icons-material/Repeat';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import ShareIcon from '@mui/icons-material/Share';
+import { Theme } from '@mui/system';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((theme: Theme) => ({
     tweetNav: {
         display: 'flex',
         justifyContent: 'flex-start',

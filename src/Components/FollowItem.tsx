@@ -1,5 +1,4 @@
 import { Avatar, Stack, Typography, IconButton, ListItemButton } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { User } from './Tweet';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
@@ -9,18 +8,14 @@ type FollowItemTypes = {
     user: User
 }
 
-const useStyles  = makeStyles((theme) => ({
-    itemWrap: {
 
-    }
-}))
 
 export const FollowItem:React.FC<FollowItemTypes> = ({user}): React.ReactElement => {
-    const classes = useStyles()
+    // const classes = useStyles()
 
     return (
         <ListItemButton disableGutters>
-            <Stack width='100%' paddingX={2} justifyContent='space-between' direction='row' className={classes.itemWrap}>
+            <Stack width='100%' paddingX={2} justifyContent='space-between' direction='row'>
                 <Stack alignItems='center' direction='row'>
                     <Avatar alt={user.userName} src={user.userAvatarUrl} />
                     <div style={{marginLeft: 10}}>
