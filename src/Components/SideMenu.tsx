@@ -10,6 +10,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import {AddTweetModal} from './modals/AddTweetModal';
+import { useNavigate } from 'react-router-dom';
 
 type SideMenuProps = {
     classes: any
@@ -45,12 +46,13 @@ const menus = [
 
 export const SideMenu: React.FC<SideMenuProps> = ({classes}): React.ReactElement => {
     const [openModalAdd, setOpenModalAdd] = React.useState(false)
+    const navigate = useNavigate()
 
     return (<div> 
         <div className = {
         classes.logo
     } > <IconButton color = 'primary' > <TwitterIcon color = 'primary' fontSize = 'medium' /> </IconButton></div> {
-        menus.map((link, i) => <ListItemButton key={i} className = {
+        menus.map((link, i) => <ListItemButton onClick={() => navigate('/home')} key={i} className = {
             classes.sideLink
         }
         sx = {{ borderRadius: 50, p: 0, minHeight: 32, color: 'rgba(255,255,255,.8)' }} > <ListItemIcon sx = {{ p:0, m:0, minWidth: 'auto', marginRight: 'px' }} > <IconButton color = 'primary' > {

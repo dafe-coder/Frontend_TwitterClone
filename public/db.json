@@ -58,7 +58,29 @@
             "text": "Lorem anim laboris est cupidatat id incididunt enim ad do. Sunt veniam Lorem in nulla. Cupidatat qui non consequat occaecat aute cillum. Occaecat ullamco anim proident incididunt Lorem cillum laborum deserunt sunt magna dolor ipsum dolor ullamco. Tempor dolor ullamco proident veniam quis Lorem esse sunt ut et voluptate culpa nostrud cupidatat. Qui voluptate aute enim reprehenderit sint.\r\n"
         }
     ],
-    "themes": [],
+    "tags": [
+        {
+            "_id": "651b119cddwqdafb3043df7a552a",
+            "name": "Defendes",
+            "count": 42,
+            "categories": "Ukraine"
+        }, {
+            "_id": "651b119cdwqdafb3043df7a552a",
+            "name": "Frontend",
+            "count": 234,
+            "categories": "Dev"
+        }, {
+            "_id": "651b1ff19cdafb3043df7a552a",
+            "name": "Backend",
+            "count": 25335,
+            "categories": "Work"
+        }, {
+            "_id": "651b14g19cdafb3043df7a552a",
+            "name": "For developers",
+            "count": 1214,
+            "categories": "Ukraine Devs"
+        }
+    ],
     "users": [
         {
             "userName": "Sears Jacobson",

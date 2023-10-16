@@ -1,8 +1,11 @@
 import React from 'react';
-import {List} from '@mui/material';
+import {CircularProgress, List} from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { TrendsItem } from './TrendsItem';
 import { BoxSide } from './UI';
+import { useSelector } from 'react-redux';
+import { selectTagsItems } from '../redux/slices/Tags/selectsTags';
+import { selectTagLoaded } from '../redux/slices/Tags/selectsTags';
 
 export const StylesTrends = {
     trendsList: {
@@ -14,8 +17,8 @@ export const StylesTrends = {
     trendsItem: {
         position: 'relative',
         padding: '0 !important',
+        margin: '0',
         '& svg': {
-
             fill: grey[700]
         }
     },
@@ -28,14 +31,15 @@ export const StylesTrends = {
 }
 
 export const Trends: React.FC = (): React.ReactElement => {
+    const tags = useSelector(selectTagsItems)
+    const loading = useSelector(selectTagLoaded)
+
     return (
         <BoxSide title='Trends for you'>
             <List disablePadding sx={StylesTrends.trendsList}>
-                <TrendsItem count='1, 175' title='Trending in Ukraine' hashtag='хтивийпонеділок' styles={StylesTrends}/>
-                <TrendsItem count='1, 175' title='Gaming · Trending' hashtag='хтивийпонеділок' styles={StylesTrends}/>
-                <TrendsItem count='1, 175' title='Trending in Ukraine' hashtag='хтивийпонеділок' styles={StylesTrends}/>
-                <TrendsItem count='1, 175' title='Trending in Ukraine' hashtag='хтивийпонеділок' styles={StylesTrends}/>
-                <TrendsItem count='1, 175' title='Trending in Ukraine' hashtag='хтивийпонеділок' styles={StylesTrends}/>
+                {loading ? tags.map(item => (
+                    <TrendsItem key={item._id} count={item.count} title={item.categories} hashtag={item.name} styles={StylesTrends}/>
+                )) : <div><CircularProgress /></div>}
             </List>
         </BoxSide>
     )

@@ -20,9 +20,12 @@ export const BoxSide:React.FC<BoxSideTypes> = ({children, title = ''}): React.Re
     const classes = useStyle()
     
     return (
-        <Box className={classes.wrap}>
+        <Box className={classes.wrap} sx={{
+            overflow: 'hidden',
+        }}>
             {title !== '' &&  <div style={{
                 padding: '20px 15px 5px',
+               
             }}>
                 <Typography fontWeight={900} gutterBottom>{title}</Typography>
             </div>}

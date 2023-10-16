@@ -1,14 +1,17 @@
-import { Container, Grid, Input, CircularProgress } from '@mui/material';
+import { Container, Grid, Input, IconButton } from '@mui/material';
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { Tweet,Trends, FastFollow, TweetAction } from '../Components';
+import { Trends, FastFollow, TweetAction } from '../Components';
 import { SideMenu } from '../Components/SideMenu';
 import { Theme } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectTweetsItems, selectTweetsStatus, setTweets } from '../redux/slices/Tweets/tweetsSlice';
-import {ITweet, LoadingState} from '../redux/slices/Tweets/state'
+import { useDispatch } from 'react-redux';
 import { fetchTweets } from '../redux/slices/Tweets/tweetsSlice';
 import { AppDispatch } from '../redux/store';
+import { fetchTags } from '../redux/slices/Tags/tagsSlice';
+import { Route, Routes } from 'react-router-dom';
+import { TweetList } from '../Components/TweetList';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { useNavigate } from 'react-router-dom';
 
 export const useStyleHome = makeStyles((theme: Theme) => {
     return ({
@@ -57,12 +60,13 @@ export const useStyleHome = makeStyles((theme: Theme) => {
 
 export const Home: React.FC = (): React.ReactElement => {
     const classes = useStyleHome()
-    const tweets = useSelector(selectTweetsItems) 
-    const tweetsStatus = useSelector(selectTweetsStatus)
+    const navigate = useNavigate()
+   
     const dispatch = useDispatch<AppDispatch>()
 
     React.useEffect(() => {
         dispatch(fetchTweets())
+        dispatch(fetchTags())
     }, [dispatch])
 
     return (
@@ -74,10 +78,18 @@ export const Home: React.FC = (): React.ReactElement => {
                 <Grid item laptop={7} tablet={9} mobile={12}>
                     <div className={classes.tweetsWrapper}>
                         <div className={classes.tweetsHeader}>
-                            <h4>Home</h4>
+                           <Routes>
+                                <Route path='/' element={<h4>Home</h4>}/>
+                                <Route path='/*' element={<div style={{display: 'flex', alignItems: "center", gap: 10}}><IconButton><KeyboardBackspaceIcon onClick={() => navigate(-1)} style={{color: '#000'}}/></IconButton><h4>Post</h4></div>}/>
+                           </Routes>
                         </div>
-                        <TweetAction />
-                        {tweetsStatus === LoadingState.LOADED ? (Array.from(tweets, (item: ITweet) => (<Tweet key={item._id} text={item.text} user={{userName: item.user.userName, userAvatarUrl: item.user.userAvatarUrl, login: item.user.login}} />))) : (<div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}><CircularProgress/></div>)}
+                        <Routes>
+                            <Route path='/' element={<TweetAction />} />
+                            <Route path='/search' element={<TweetAction />} />
+                        </Routes>
+                        <Routes>
+                            <Route path='/' element={<TweetList />}/>
+                        </Routes>
                     </div>
                 </Grid>
                 <Grid item laptop={3} tablet={12} mobile={12}>

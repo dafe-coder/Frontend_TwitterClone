@@ -4,6 +4,8 @@ import React from 'react';
 import { grey } from '@mui/material/colors';
 import { TweetNav } from './TweetNav';
 import Grid from '@mui/material/Grid';
+import { useNavigate } from 'react-router-dom';
+import { ITweet } from '../redux/slices/Tweets/state';
 
 const useStyle = makeStyles((theme) => ({
     tweetItem: {
@@ -29,32 +31,30 @@ export type User = {
     userAvatarUrl: string
 }
 
-type TweetProps = {
-    user: User
-    text: string
-}
 
-export const Tweet: React.FC<TweetProps> = ({user, text}):React.ReactElement => {
+export const Tweet: React.FC<ITweet> = ({user, text, _id}):React.ReactElement => {
     const classes = useStyle()
-return (
-<div className={classes.tweetItem}>
-    <Grid container flexWrap='nowrap'>
-        <Grid laptop={2}>
-            <Avatar 
-            sx={{ width: 46, height: 46 }} className={classes.tweetAvatar} alt={`Avatar ${user.userName}`} src={user.userAvatarUrl} />
-        </Grid>
-        <Grid laptop={10} >
-            <div style={{marginLeft: 25}}>
-                <Typography gutterBottom>
-                    {user.userName} <span className={classes.userName}>{user.login} · 4h</span>
-                </Typography>
-                <Typography variant='body2' gutterBottom>
-                    {text}
-                </Typography>
-                <TweetNav />
-            </div>
-        </Grid>
-    </Grid>
-</div>
-)
+    const navigate = useNavigate()
+    
+    return (
+        <div className={classes.tweetItem} onClick={() => navigate(`tweet/${_id}`)}>
+            <Grid container flexWrap='nowrap'>
+                <Grid desktop={1} tablet={2}>
+                    <Avatar 
+                    sx={{ width: 46, height: 46 }} className={classes.tweetAvatar} alt={`Avatar ${user.userName}`} src={user.userAvatarUrl} />
+                </Grid>
+                <Grid desktop={11}  tablet={10}>
+                    <div style={{marginLeft: 25}}>
+                        <Typography gutterBottom>
+                            {user.userName} <span className={classes.userName}>{user.login} · 4h</span>
+                        </Typography>
+                        <Typography variant='body2' gutterBottom>
+                            {text}
+                        </Typography>
+                        <TweetNav />
+                    </div>
+                </Grid>
+            </Grid>
+        </div>
+    )
 }
