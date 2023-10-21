@@ -4,7 +4,7 @@ import {
 	createAsyncThunk,
 	createSelector,
 } from '@reduxjs/toolkit';
-import { LoadingState, ITweet, TweetsState } from './state';
+import { LoadingState, TweetsState } from './state';
 import { RootState } from '../../store';
 import { fetchTweetsApi } from '../../../services/api/tweetsApi';
 
@@ -33,16 +33,16 @@ const tweetsSlice = createSlice({
 		},
 	},
 	extraReducers(builder) {
-		builder.addCase(fetchTweets.pending, (state, action) => {
+		builder.addCase(fetchTweets.pending, (state: TweetsState, action) => {
 			state.items = [];
 			state.status = LoadingState.LOADING;
 		});
-		builder.addCase(fetchTweets.fulfilled, (state, action) => {
+		builder.addCase(fetchTweets.fulfilled, (state: TweetsState, action) => {
 			state.items = [];
 			state.items = action.payload;
 			state.status = LoadingState.LOADED;
 		});
-		builder.addCase(fetchTweets.rejected, (state, action) => {
+		builder.addCase(fetchTweets.rejected, (state: TweetsState, action) => {
 			state.items = [];
 			state.status = LoadingState.ERROR;
 		});

@@ -1,7 +1,6 @@
 import React from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { ListItem, ListItemButton, Typography } from '@mui/material';
-import { StylesTrends } from './Trends';
 import { useNavigate } from 'react-router-dom';
 
 type TrendsItemType = {

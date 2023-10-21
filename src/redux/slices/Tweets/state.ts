@@ -12,7 +12,7 @@ export type User = {
 };
 
 export interface ITweet {
-	_id: number;
+	_id: string;
 	user: User;
 	text: string;
 }

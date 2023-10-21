@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tweetsSlice from './slices/Tweets/tweetsSlice';
 import tagsSlice from './slices/Tags/tagsSlice';
+import tweetSlice from './slices/Tweet/tweetSlice';
 export type AppDispatch = typeof store.dispatch;
 
 // @ts-ignore
@@ -8,6 +9,7 @@ export type AppDispatch = typeof store.dispatch;
 export const store = configureStore({
 	reducer: {
 		tweets: tweetsSlice,
+		tweet: tweetSlice,
 		tags: tagsSlice,
 	},
 });

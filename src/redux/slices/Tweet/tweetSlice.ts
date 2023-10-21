@@ -14,49 +14,50 @@ const initialState: TweetState = {
 	status: LoadingState.NEVER,
 };
 
-export const fetchTweets = createAsyncThunk(
-	'tweets/fetchTweetsStatus',
-	async () => {
-		const response = await fetchTweetApi();
-		return response;
+export const fetchTweet = createAsyncThunk(
+	'tweet/fetchTweetStatus',
+	async (id: string) => {
+		const response = await fetchTweetApi(id);
+		return response[0];
 	}
 );
 
-const tweetsSlice = createSlice({
-	name: 'tweets',
+const tweetSlice = createSlice({
+	name: 'tweet',
 	initialState,
 	reducers: {
-		setTweets(state: TweetState, action: PayloadAction<ITweet>): any {
+		setTweet(state: TweetState, action: PayloadAction<ITweet>): any {
 			state.data = action.payload;
 		},
 	},
 	extraReducers(builder) {
-		builder.addCase(fetchTweets.pending, (state, action) => {
+		builder.addCase(fetchTweet.pending, (state) => {
 			state.data = null;
 			state.status = LoadingState.LOADING;
 		});
-		builder.addCase(fetchTweets.fulfilled, (state, action) => {
+		builder.addCase(fetchTweet.fulfilled, (state, action) => {
 			state.data = null;
 			state.data = action.payload;
 			state.status = LoadingState.LOADED;
 		});
-		builder.addCase(fetchTweets.rejected, (state, action) => {
+		builder.addCase(fetchTweet.rejected, (state) => {
 			state.data = null;
 			state.status = LoadingState.ERROR;
 		});
 	},
 });
 
-const selectTweets = (state: RootState) => state.tweets;
+const selectTweet = (state: RootState) => state.tweet;
 
-export const selectTweetsItems = createSelector(
-	selectTweets,
-	(state) => state.items
+export const selectTweetItem = createSelector(
+	selectTweet,
+	(state) => state.data
 );
-export const selectTweetsStatus = createSelector(
-	selectTweets,
+
+export const selectTweetStatus = createSelector(
+	selectTweet,
 	(state) => state.status
 );
 
-export const { setTweets } = tweetsSlice.actions;
-export default tweetsSlice.reducer;
+export const { setTweet } = tweetSlice.actions;
+export default tweetSlice.reducer;
