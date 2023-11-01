@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme) => ({
     },
     textIcon: {
         color: 'rgb(83, 100, 113)',
-        fontWeight: 500, 
+        fontWeight: 500,
         marginLeft: 4
     },
     circle: {
         position: 'absolute',
-        top: '50%', 
+        top: '50%',
         marginTop: -13,
         left: 0
     },
@@ -50,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
 type TweetActionMenuTypes = {
     progressPercent: number,
     text: string,
-    onSend: () => void
+    onSend: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const TweetActionMenu: React.FC<TweetActionMenuTypes> = ({progressPercent, text = '', onSend}):React.ReactElement => {
+export const TweetActionMenu: React.FC<TweetActionMenuTypes> = ({ progressPercent, text = '', onSend }): React.ReactElement => {
     const classes = useStyles()
     const [leftLength, setLeftLength] = React.useState(280)
 
@@ -64,29 +64,29 @@ export const TweetActionMenu: React.FC<TweetActionMenuTypes> = ({progressPercent
     return (
         <Stack direction='row' justifyContent='space-between'>
             <ul className={classes.tweetNav}>
-                <li style={{display: 'flex', alignItems: 'center'}}>
+                <li style={{ display: 'flex', alignItems: 'center' }}>
                     <IconButton
                         className={classes.navLink}
                         color="primary"
                         aria-label="add to shopping cart">
-                        <BrokenImageOutlinedIcon color='primary'/>
+                        <BrokenImageOutlinedIcon color='primary' />
                     </IconButton>
                 </li>
-                <li style={{display: 'flex', alignItems: 'center'}}>
+                <li style={{ display: 'flex', alignItems: 'center' }}>
                     <IconButton
                         className={classes.navLink}
                         color="primary"
                         aria-label="add to shopping cart">
-                        <SentimentSatisfiedAltOutlinedIcon color='primary'/>
+                        <SentimentSatisfiedAltOutlinedIcon color='primary' />
                     </IconButton>
                 </li>
             </ul>
-            {text !== '' ? <div style={{position: 'relative', width: 60,}}>
+            {text !== '' ? <div style={{ position: 'relative', width: 60, }}>
                 <span className={classes.lengthLeft}>{leftLength}</span>
-                <CircularProgress color='secondary' className={classes.circle} size={30} value={100} variant='determinate'/>
-                <CircularProgress color={progressPercent < 100 ? 'primary' : "error"} className={classes.circle} size={30} value={progressPercent} variant='determinate'/>
+                <CircularProgress color='secondary' className={classes.circle} size={30} value={100} variant='determinate' />
+                <CircularProgress color={progressPercent < 100 ? 'primary' : "error"} className={classes.circle} size={30} value={progressPercent} variant='determinate' />
             </div> : <></>}
-            <Button onClick={onSend} sx={{minWidth: 110}} disabled={text.length >= 1 ? false : true}>Tweet</Button>
+            <Button onClick={(e) => onSend(e)} sx={{ minWidth: 110 }} disabled={text.length >= 1 ? false : true}>Tweet</Button>
         </Stack>
     )
 }

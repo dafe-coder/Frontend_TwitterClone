@@ -11,9 +11,7 @@ import { Tweet } from './Tweet';
 export const TweetList = () => {
 	const tweets = useSelector(selectTweetsItems);
 	const tweetsStatus = useSelector(selectTweetsStatus);
-	React.useEffect(() => {
-		console.log(tweets)
-	}, [tweets])
+
 	return (
 		<div>
 			{tweetsStatus === LoadingState.LOADED ? (

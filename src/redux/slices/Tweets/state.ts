@@ -13,6 +13,7 @@ export type User = {
 
 export interface ITweet {
 	_id: string;
+	id?: number;
 	user: User;
 	text: string;
 }
@@ -20,4 +21,5 @@ export interface ITweet {
 export interface TweetsState {
 	items: ITweet[];
 	status: LoadingState;
+	statusTweet: LoadingState;
 }
