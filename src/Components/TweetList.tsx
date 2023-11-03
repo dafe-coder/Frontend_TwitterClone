@@ -8,7 +8,7 @@ import { ITweet, LoadingState } from '../redux/slices/Tweets/state';
 import { CircularProgress } from '@mui/material';
 import { Tweet } from './Tweet';
 
-export const TweetList = () => {
+export const TweetList = (): React.ReactElement => {
 	const tweets = useSelector(selectTweetsItems);
 	const tweetsStatus = useSelector(selectTweetsStatus);
 

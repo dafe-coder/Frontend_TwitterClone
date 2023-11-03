@@ -95,6 +95,10 @@ export const selectTweetsStatus = createSelector(
 	selectTweets,
 	(state) => state.status
 );
+export const selectTweetsStatusAddTweet = createSelector(
+	selectTweets,
+	(state) => state.statusTweet
+);
 
 export const { setTweets, addTweet } = tweetsSlice.actions;
 export default tweetsSlice.reducer;

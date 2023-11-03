@@ -1,10 +1,11 @@
-import { Avatar, Paper, TextareaAutosize, Stack } from '@mui/material';
+import { Avatar, Paper, TextareaAutosize, Stack, Snackbar, Alert, Collapse } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { TweetActionMenu } from './TweetActionMenu';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../redux/store';
-import { fetchAddTweet } from '../redux/slices/Tweets/tweetsSlice';
+import { fetchAddTweet, selectTweetsStatusAddTweet } from '../redux/slices/Tweets/tweetsSlice';
+import { LoadingState } from '../redux/slices/Tweets/state';
 
 const useStyles = makeStyles((theme) => ({
     textArea: {
@@ -21,8 +22,16 @@ const useStyles = makeStyles((theme) => ({
 export const TweetAction: React.FC = (): React.ReactElement => {
     const dispatch = useDispatch<AppDispatch>()
     const classes = useStyles()
-    const [text, setText] = React.useState('')
+    const statusTweetAdd = useSelector(selectTweetsStatusAddTweet)
+    const [text, setText] = React.useState<string>('')
+    const [openError, setOpenError] = React.useState<boolean>(false)
     const textLimitPercent = (text.length / 280) * 100
+
+    React.useEffect(() => {
+        if (statusTweetAdd === LoadingState.ERROR) {
+            setOpenError(true)
+        }
+    }, [statusTweetAdd])
 
     const onAddedTweet = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault()
@@ -43,10 +52,13 @@ export const TweetAction: React.FC = (): React.ReactElement => {
                 <Stack ml={3} width='100%'>
                     <TextareaAutosize maxLength={280} value={text} onChange={handleChangeText} minRows={3} className={classes.textArea} placeholder='What is happening!?' />
                     <Stack mt={2} pt={1} borderTop='1px solid rgb(239, 243, 244)'>
-                        <TweetActionMenu onSend={onAddedTweet} text={text} progressPercent={textLimitPercent} />
+                        <TweetActionMenu loading={statusTweetAdd} onSend={onAddedTweet} text={text} progressPercent={textLimitPercent} />
                     </Stack>
                 </Stack>
             </Stack>
+            <Collapse in={openError}>
+                <Alert sx={{ marginTop: 2 }} severity='error'>An error occurred, please try again later.</Alert>
+            </Collapse>
         </Paper>
     )
 }

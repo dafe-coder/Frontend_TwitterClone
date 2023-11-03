@@ -4,6 +4,7 @@ import React from 'react';
 import BrokenImageOutlinedIcon from '@mui/icons-material/BrokenImageOutlined';
 import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
+import { LoadingState } from '../redux/slices/Tweets/state';
 
 const useStyles = makeStyles((theme) => ({
     tweetNav: {
@@ -49,11 +50,12 @@ const useStyles = makeStyles((theme) => ({
 
 type TweetActionMenuTypes = {
     progressPercent: number,
+    loading: LoadingState
     text: string,
     onSend: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const TweetActionMenu: React.FC<TweetActionMenuTypes> = ({ progressPercent, text = '', onSend }): React.ReactElement => {
+export const TweetActionMenu: React.FC<TweetActionMenuTypes> = ({ progressPercent, loading, text = '', onSend }): React.ReactElement => {
     const classes = useStyles()
     const [leftLength, setLeftLength] = React.useState(280)
 
@@ -86,7 +88,7 @@ export const TweetActionMenu: React.FC<TweetActionMenuTypes> = ({ progressPercen
                 <CircularProgress color='secondary' className={classes.circle} size={30} value={100} variant='determinate' />
                 <CircularProgress color={progressPercent < 100 ? 'primary' : "error"} className={classes.circle} size={30} value={progressPercent} variant='determinate' />
             </div> : <></>}
-            <Button onClick={(e) => onSend(e)} sx={{ minWidth: 110 }} disabled={text.length >= 1 ? false : true}>Tweet</Button>
-        </Stack>
+            <Button onClick={(e) => onSend(e)} sx={{ minWidth: 110 }} disabled={!text || text.length === 0 || loading === LoadingState.LOADING}>{loading === LoadingState.LOADING ? <CircularProgress color='info' size='25px' /> : 'Tweet'}</Button>
+        </Stack >
     )
 }

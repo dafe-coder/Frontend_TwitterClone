@@ -1,11 +1,5 @@
-import {
-	PayloadAction,
-	createSlice,
-	createAsyncThunk,
-	createSelector,
-} from '@reduxjs/toolkit';
+import { PayloadAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { LoadingState, TagsState } from './state';
-import { RootState } from '../../store';
 import { fetchTagsApi } from '../../../services/api/tagsApi';
 
 const initialState: TagsState = {
