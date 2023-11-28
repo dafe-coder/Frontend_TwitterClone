@@ -18,7 +18,7 @@ export const fetchTweet = createAsyncThunk(
 	'tweet/fetchTweetStatus',
 	async (id: string) => {
 		const response = await fetchTweetApi(id);
-		return response[0];
+		return response;
 	}
 );
 

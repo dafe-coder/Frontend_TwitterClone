@@ -17,13 +17,15 @@ export const TweetList = (): React.ReactElement => {
 			{tweetsStatus === LoadingState.LOADED ? (
 				Array.from(tweets, (item: ITweet) => (
 					<Tweet
+						createdAt={item.createdAt}
 						_id={item._id}
 						key={item._id}
 						text={item.text}
 						user={{
-							userName: item.user.userName,
-							userAvatarUrl: item.user.userAvatarUrl,
-							login: item.user.login,
+							createdAt: item.user.createdAt,
+							userName: item.user?.userName,
+							userAvatarUrl: item.user?.userAvatarUrl,
+							fullName: item.user?.fullName,
 						}}
 					/>
 				))

@@ -1,4 +1,4 @@
-import { Avatar, Paper, TextareaAutosize, Stack, Snackbar, Alert, Collapse } from '@mui/material';
+import { Avatar, Paper, TextareaAutosize, Stack, Alert, Collapse } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { TweetActionMenu } from './TweetActionMenu';

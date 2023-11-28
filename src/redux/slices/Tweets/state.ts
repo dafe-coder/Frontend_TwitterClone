@@ -7,8 +7,9 @@ export enum LoadingState {
 
 export type User = {
 	userName: string;
-	login: string;
+	fullName: string;
 	userAvatarUrl: string;
+	createdAt: string;
 };
 
 export interface ITweet {
@@ -16,6 +17,7 @@ export interface ITweet {
 	id?: number;
 	user: User;
 	text: string;
+	createdAt: string;
 }
 
 export interface TweetsState {

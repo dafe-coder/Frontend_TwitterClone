@@ -28,18 +28,7 @@ export const fetchTweets = createAsyncThunk(
 export const fetchAddTweet = createAsyncThunk(
 	'tweets/addTweetStatus',
 	async (payload: string) => {
-		const data: ITweet = {
-			_id: Math.random().toString(36).slice(2),
-			user: {
-				userName: 'Alex',
-				login: 'alexider@cume',
-				userAvatarUrl:
-					'https://images.unsplash.com/photo-1619734086067-24bf8889ea7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1760&q=80',
-			},
-			text: payload,
-		};
-
-		const response = await AddTweetRequest(data);
+		const response = await AddTweetRequest(payload);
 		return response;
 	}
 );
@@ -85,18 +74,17 @@ const tweetsSlice = createSlice({
 	},
 });
 
-const selectTweets = (state: RootState) => state.tweets;
+const selectTweetsState = (state: RootState) => state.tweets;
 
-export const selectTweetsItems = createSelector(
-	selectTweets,
-	(state) => state.items
-);
+export const selectTweetsItems = (state: RootState) =>
+	selectTweetsState(state).items;
+
 export const selectTweetsStatus = createSelector(
-	selectTweets,
+	selectTweetsState,
 	(state) => state.status
 );
 export const selectTweetsStatusAddTweet = createSelector(
-	selectTweets,
+	selectTweetsState,
 	(state) => state.statusTweet
 );
 

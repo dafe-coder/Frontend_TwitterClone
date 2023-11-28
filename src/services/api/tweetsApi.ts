@@ -1,10 +1,22 @@
-import axios from 'axios';
+import { axios } from '../../core/axios';
 import { ITweet, TweetsState } from '../../redux/slices/Tweets/state';
 
-export async function fetchTweetsApi(): Promise<TweetsState['items']> {
-	return await axios.get('/tweets').then(({ data }) => data);
+interface IResponse<T> {
+	status: string;
+	data: T;
 }
 
-export async function AddTweetRequest(payload: ITweet): Promise<ITweet> {
-	return await axios.post('/tweets', payload).then(({ data }) => data);
+export async function fetchTweetsApi(): Promise<TweetsState['items']> {
+	const { data } = await axios
+		.get<IResponse<TweetsState['items']>>('/tweets')
+		.then(({ data }) => data);
+
+	return data;
+}
+
+export async function AddTweetRequest(payload: string): Promise<ITweet> {
+	const { data } = await axios
+		.post<IResponse<ITweet>>('/tweets', { text: payload })
+		.then(({ data }) => data);
+	return data;
 }

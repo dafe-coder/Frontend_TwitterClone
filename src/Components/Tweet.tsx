@@ -1,4 +1,4 @@
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import { grey } from '@mui/material/colors';
@@ -6,6 +6,8 @@ import { TweetNav } from './TweetNav';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 import { ITweet } from '../redux/slices/Tweets/state';
+import { formatDate } from '../utils/formatDate';
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 const useStyle = makeStyles((theme) => ({
     tweetItem: {
@@ -18,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
     },
     userName: {
         color: grey[400]
-    }, 
+    },
     tweetAvatar: {
         width: 25,
         height: 25
@@ -27,28 +29,70 @@ const useStyle = makeStyles((theme) => ({
 
 export type User = {
     userName: string,
-    login: string,
+    fullName: string,
     userAvatarUrl: string
 }
 
+interface TweetProps extends ITweet {
+    createdAt: string
+}
 
-export const Tweet: React.FC<ITweet> = ({user, text, _id}):React.ReactElement => {
+
+export const Tweet: React.FC<TweetProps> = ({ user, text, _id, createdAt }): React.ReactElement => {
     const classes = useStyle()
     const navigate = useNavigate()
-    
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation()
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation()
+        setAnchorEl(null);
+    };
+
     return (
         <div className={classes.tweetItem} onClick={() => navigate(`tweet/${_id}`)}>
             <Grid container flexWrap='nowrap'>
                 <Grid desktop={1} tablet={2}>
-                    <Avatar 
-                    sx={{ width: 46, height: 46 }} className={classes.tweetAvatar} alt={`Avatar ${user.userName}`} src={user.userAvatarUrl} />
+                    <Avatar
+                        sx={{ width: 46, height: 46 }} className={classes.tweetAvatar} alt={`Avatar ${user.userName}`} src={user.userAvatarUrl} />
                 </Grid>
-                <Grid desktop={11}  tablet={10}>
-                    <div style={{marginLeft: 25}}>
-                        <Typography gutterBottom>
-                            {user.userName} <span className={classes.userName}>{user.login} · 4h</span>
-                        </Typography>
-                        <Typography variant='body2' gutterBottom>
+                <Grid desktop={11} tablet={10}>
+                    <div style={{ marginLeft: 25 }}>
+                        <Grid sx={{ display: 'flex', gap: '5px' }}>
+                            <Typography gutterBottom fontWeight={600} fontSize={16}>
+                                {user.fullName}
+                            </Typography>
+                            <Typography><span className={classes.userName}>@{user.userName} · {formatDate(new Date(createdAt))}</span></Typography>
+                            <Grid sx={{ zIndex: 2, marginLeft: 'auto' }}>
+                                <IconButton
+                                    aria-label="more"
+                                    id="long-button"
+                                    aria-controls={open ? 'long-menu' : undefined}
+                                    aria-expanded={open ? 'true' : undefined}
+                                    aria-haspopup="true"
+                                    onClick={handleClick}
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+                                <Menu
+                                    id="long-menu"
+                                    MenuListProps={{
+                                        'aria-labelledby': 'long-button',
+                                    }}
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>
+                                        <Typography>Delete</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            </Grid>
+                        </Grid>
+                        <Typography variant='body2' gutterBottom sx={{ wordBreak: 'break-world' }}>
                             {text}
                         </Typography>
                         <TweetNav />

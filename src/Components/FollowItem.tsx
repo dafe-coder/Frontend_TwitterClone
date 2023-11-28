@@ -10,7 +10,7 @@ type FollowItemTypes = {
 
 
 
-export const FollowItem:React.FC<FollowItemTypes> = ({user}): React.ReactElement => {
+export const FollowItem: React.FC<FollowItemTypes> = ({ user }): React.ReactElement => {
     // const classes = useStyles()
 
     return (
@@ -18,13 +18,13 @@ export const FollowItem:React.FC<FollowItemTypes> = ({user}): React.ReactElement
             <Stack width='100%' paddingX={2} justifyContent='space-between' direction='row'>
                 <Stack alignItems='center' direction='row'>
                     <Avatar alt={user.userName} src={user.userAvatarUrl} />
-                    <div style={{marginLeft: 10}}>
+                    <div style={{ marginLeft: 10 }}>
                         <Typography fontSize={12} fontWeight={700}>{user.userName}</Typography>
-                        <Typography color={grey[700]} fontWeight={500} fontSize={12}>{user.login}</Typography>
+                        <Typography color={grey[700]} fontWeight={500} fontSize={12}>{user.fullName}</Typography>
                     </div>
                 </Stack>
-                <IconButton sx={{width: 45, height: 45}}>
-                    <PersonAddOutlinedIcon sx={{fontSize:20}}/>
+                <IconButton sx={{ width: 45, height: 45 }}>
+                    <PersonAddOutlinedIcon sx={{ fontSize: 20 }} />
                 </IconButton>
             </Stack>
         </ListItemButton>
