@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button} from '@mui/material';
-import {SvgIcon} from '../svgs/';
+import { Button } from '@mui/material';
+import { SvgIcon } from '../svgs/';
 import theme from '../Theme';
-import {Typography} from '@mui/material';
-import {LoginModal, RegisterModal} from '../Components/modals';
+import { Typography } from '@mui/material';
+import { LoginModal, RegisterModal } from '../Components/modals';
+
 
 const styles = {
     wrap: {
@@ -20,20 +21,23 @@ const styles = {
     }
 };
 
+
 export const SignIn: React.FC = (): React.ReactElement => {
     const [openRegister, setOpenRegister] = React.useState(false);
     const [openLogin, setOpenLogin] = React.useState(false);
+
+
 
     return (
         <div style={styles.wrap}>
             <div style={styles.blueBox}></div>
             <div style={styles.rightBlock}>
-                <SvgIcon height={45} fill={theme.palette.primary.main} type='logo'/>
+                <SvgIcon height={45} fill={theme.palette.primary.main} type='logo' />
                 <Typography
                     sx={{
                         marginTop: '50px'
                     }}
-                    variant='h1'>В курсе<br/>
+                    variant='h1'>В курсе<br />
                     происходящего
                 </Typography>
                 <Typography
@@ -69,8 +73,8 @@ export const SignIn: React.FC = (): React.ReactElement => {
                     </div>
                 </div>
             </div>
-            {openRegister && <RegisterModal open={openRegister} setOpen={setOpenRegister}/>}
-            {openLogin && <LoginModal open={openLogin} setOpen={setOpenLogin}/>}
+            {openRegister && <RegisterModal open={openRegister} setOpen={setOpenRegister} />}
+            {openLogin && <LoginModal open={openLogin} setOpen={setOpenLogin} />}
         </div>
     )
 }

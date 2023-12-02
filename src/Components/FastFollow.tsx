@@ -2,10 +2,16 @@ import React from 'react';
 import { BoxSide } from './UI';
 import { List } from '@mui/material';
 import { FollowItem } from './FollowItem';
+import { useSelector } from 'react-redux';
+import { selectUsers } from '../redux/slices/Users/usersSlice';
 
 
 
 export const FastFollow: React.FC = (): React.ReactElement => {
+    const items = useSelector(selectUsers)
+    React.useEffect(() => {
+        console.log(items)
+    }, [items])
     return (
         <BoxSide title='Who to follow'>
             <List disablePadding>

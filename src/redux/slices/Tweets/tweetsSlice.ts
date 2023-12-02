@@ -8,6 +8,7 @@ import { ITweet, LoadingState, TweetsState } from './state';
 import { RootState } from '../../store';
 import {
 	AddTweetRequest,
+	DeleteTweetRequest,
 	fetchTweetsApi,
 } from '../../../services/api/tweetsApi';
 
@@ -30,6 +31,14 @@ export const fetchAddTweet = createAsyncThunk(
 	async (payload: string) => {
 		const response = await AddTweetRequest(payload);
 		return response;
+	}
+);
+
+export const fetchDeleteTweet = createAsyncThunk(
+	'tweets/deleteTweetStatus',
+	async (payload: string) => {
+		await DeleteTweetRequest(payload);
+		return payload;
 	}
 );
 
@@ -71,6 +80,12 @@ const tweetsSlice = createSlice({
 		builder.addCase(fetchAddTweet.rejected, (state: TweetsState, action) => {
 			state.statusTweet = LoadingState.ERROR;
 		});
+		builder.addCase(
+			fetchDeleteTweet.fulfilled,
+			(state: TweetsState, action) => {
+				state.items = state.items.filter((item) => item._id !== action.payload);
+			}
+		);
 	},
 });
 

@@ -20,3 +20,7 @@ export async function AddTweetRequest(payload: string): Promise<ITweet> {
 		.then(({ data }) => data);
 	return data;
 }
+
+export async function DeleteTweetRequest(payload: string): Promise<ITweet> {
+	return await axios.delete(`/tweets/${payload}`).then(({ data }) => data);
+}

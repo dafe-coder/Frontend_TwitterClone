@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { ITweet } from '../redux/slices/Tweets/state';
 import { formatDate } from '../utils/formatDate';
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import { fetchDeleteTweet } from '../redux/slices/Tweets/tweetsSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
 
 const useStyle = makeStyles((theme) => ({
     tweetItem: {
@@ -40,6 +43,7 @@ interface TweetProps extends ITweet {
 
 export const Tweet: React.FC<TweetProps> = ({ user, text, _id, createdAt }): React.ReactElement => {
     const classes = useStyle()
+    const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -51,6 +55,12 @@ export const Tweet: React.FC<TweetProps> = ({ user, text, _id, createdAt }): Rea
         event.stopPropagation()
         setAnchorEl(null);
     };
+
+    const onDelete = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(null);
+        event.stopPropagation()
+        dispatch(fetchDeleteTweet(_id))
+    }
 
     return (
         <div className={classes.tweetItem} onClick={() => navigate(`tweet/${_id}`)}>
@@ -87,6 +97,9 @@ export const Tweet: React.FC<TweetProps> = ({ user, text, _id, createdAt }): Rea
                                     onClose={handleClose}
                                 >
                                     <MenuItem onClick={handleClose}>
+                                        <Typography>Edit</Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={onDelete}>
                                         <Typography>Delete</Typography>
                                     </MenuItem>
                                 </Menu>
