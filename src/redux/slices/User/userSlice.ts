@@ -6,8 +6,9 @@ import {
 } from '@reduxjs/toolkit';
 import { IUser, LoadingState, UserState } from './state';
 import { RootState } from '../../store';
-import { fetchSignIn } from '../../../services/api/authApi';
+import { fetchSignIn, fetchSignUp } from '../../../services/api/authApi';
 import { LoginFormProps } from '../../../Components/modals/LoginModal';
+import { RegisterFormProps } from '../../../Components/modals';
 
 const initialState: UserState = {
 	data: null,
@@ -19,6 +20,13 @@ export const fetchUserSignIn = createAsyncThunk(
 	async (postData: LoginFormProps) => {
 		const response = await fetchSignIn(postData);
 		window.localStorage.setItem('token', response.data.token);
+		return response;
+	}
+);
+export const fetchUserSignUp = createAsyncThunk(
+	'user/fetchUserSignUpStatus',
+	async (postData: RegisterFormProps) => {
+		const response = await fetchSignUp(postData);
 		return response;
 	}
 );
@@ -42,6 +50,18 @@ const userSlice = createSlice({
 			state.status = LoadingState.LOADED;
 		});
 		builder.addCase(fetchUserSignIn.rejected, (state) => {
+			state.data = null;
+			state.status = LoadingState.ERROR;
+		});
+		builder.addCase(fetchUserSignUp.pending, (state) => {
+			state.data = null;
+			state.status = LoadingState.LOADING;
+		});
+		builder.addCase(fetchUserSignUp.fulfilled, (state, action) => {
+			state.data = null;
+			state.status = LoadingState.LOADED;
+		});
+		builder.addCase(fetchUserSignUp.rejected, (state) => {
 			state.data = null;
 			state.status = LoadingState.ERROR;
 		});

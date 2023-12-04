@@ -1,5 +1,5 @@
 import { axios } from '../../core/axios';
-import { LoginFormProps } from '../../Components/modals';
+import { LoginFormProps, RegisterFormProps } from '../../Components/modals';
 
 interface ResponseApi {
 	status: string;
@@ -14,6 +14,14 @@ export async function fetchSignIn(
 			username: postData.email,
 			password: postData.password,
 		})
+		.then(({ data }) => data);
+}
+
+export async function fetchSignUp(
+	postData: RegisterFormProps
+): Promise<ResponseApi> {
+	return await axios
+		.post<ResponseApi>(`/auth/register`, postData)
 		.then(({ data }) => data);
 }
 

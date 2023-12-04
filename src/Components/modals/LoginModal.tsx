@@ -45,6 +45,8 @@ export const LoginModal: React.FC<LoginProps> = ({ open = false, setOpen }) => {
   })
 
   const onSubmit = async (data: LoginFormProps) => {
+    console.log(data);
+
     dispatch(fetchUserSignIn(data))
   }
 
