@@ -10,7 +10,7 @@ import { selectUsers } from '../redux/slices/Users/usersSlice';
 export const FastFollow: React.FC = (): React.ReactElement => {
     const items = useSelector(selectUsers)
     React.useEffect(() => {
-        console.log(items)
+        // console.log(items)
     }, [items])
     return (
         <BoxSide title='Who to follow'>

@@ -9,6 +9,7 @@ import { RootState } from '../../store';
 import { fetchSignIn, fetchSignUp } from '../../../services/api/authApi';
 import { LoginFormProps } from '../../../Components/modals/LoginModal';
 import { RegisterFormProps } from '../../../Components/modals';
+import { fetchGetMe } from '../../../services/api/authApi';
 
 const initialState: UserState = {
 	data: null,
@@ -27,6 +28,13 @@ export const fetchUserSignUp = createAsyncThunk(
 	'user/fetchUserSignUpStatus',
 	async (postData: RegisterFormProps) => {
 		const response = await fetchSignUp(postData);
+		return response;
+	}
+);
+export const fetchGetMeInfo = createAsyncThunk(
+	'user/fetchGetMeStatus',
+	async () => {
+		const response = await fetchGetMe();
 		return response;
 	}
 );
@@ -57,11 +65,23 @@ const userSlice = createSlice({
 			state.data = null;
 			state.status = LoadingState.LOADING;
 		});
-		builder.addCase(fetchUserSignUp.fulfilled, (state, action) => {
+		builder.addCase(fetchUserSignUp.fulfilled, (state) => {
 			state.data = null;
 			state.status = LoadingState.LOADED;
 		});
 		builder.addCase(fetchUserSignUp.rejected, (state) => {
+			state.data = null;
+			state.status = LoadingState.ERROR;
+		});
+		builder.addCase(fetchGetMeInfo.pending, (state) => {
+			state.data = null;
+			state.status = LoadingState.LOADING;
+		});
+		builder.addCase(fetchGetMeInfo.fulfilled, (state, action) => {
+			state.data = action.payload.data;
+			state.status = LoadingState.LOADED;
+		});
+		builder.addCase(fetchGetMeInfo.rejected, (state) => {
 			state.data = null;
 			state.status = LoadingState.ERROR;
 		});
@@ -78,6 +98,10 @@ export const selectUser = createSelector(
 export const selectUserStatus = createSelector(
 	selectUserState,
 	(state) => state.status
+);
+export const selectUserLoaded = createSelector(
+	selectUserStatus,
+	(state) => state === LoadingState.LOADED
 );
 
 export const selectIsAuth = createSelector(selectUserState, (state): boolean =>

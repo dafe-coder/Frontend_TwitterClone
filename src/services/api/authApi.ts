@@ -28,6 +28,3 @@ export async function fetchSignUp(
 export async function fetchGetMe(): Promise<ResponseApi> {
 	return await axios.get<ResponseApi>(`/users/me`).then(({ data }) => data);
 }
-
-// @ts-ignore
-window.fetchGetMe = fetchGetMe;

@@ -11,7 +11,7 @@ import * as yup from "yup"
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { Notification } from '../Notification';
-import { AlertColor } from '@mui/material';
+import { AlertColor, CircularProgress } from '@mui/material';
 import { fetchUserSignIn, selectUserStatus } from '../../redux/slices/User/userSlice';
 import { LoadingState } from '../../redux/slices/Tweets/state';
 
@@ -44,9 +44,8 @@ export const LoginModal: React.FC<LoginProps> = ({ open = false, setOpen }) => {
     resolver: yupResolver(LoginFormSchema),
   })
 
-  const onSubmit = async (data: LoginFormProps) => {
-    console.log(data);
 
+  const onSubmit = async (data: LoginFormProps) => {
     dispatch(fetchUserSignIn(data))
   }
 
@@ -104,12 +103,13 @@ export const LoginModal: React.FC<LoginProps> = ({ open = false, setOpen }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={userStatus === LoadingState.LOADING}>
+              {userStatus === LoadingState.LOADING ? <CircularProgress size={25} color='info' /> : 'Login'}
+            </Button>
           </DialogActions>
         </form>
       </Dialog>)
     }}
   </Notification>
-
   );
 }

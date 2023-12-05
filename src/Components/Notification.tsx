@@ -17,7 +17,7 @@ export const Notification: React.FC<INotificationProps> = ({ children }): React.
     }
 
     return (
-        <Stack spacing={2} sx={{ width: '100%' }}>
+        <Stack>
             <Snackbar open={open} autoHideDuration={6000} onClose={() => setOpen(false)} anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}>
                 <Alert onClose={() => setOpen(false)} severity={notificationObj?.type ? notificationObj?.type : 'success'} sx={{ width: '400px' }}>
                     {notificationObj?.text}

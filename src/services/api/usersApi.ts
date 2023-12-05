@@ -12,10 +12,3 @@ export async function fetchUsers(
 ): Promise<ResponseApi> {
 	return await axios.get<ResponseApi>(`/users/`).then(({ data }) => data);
 }
-
-export async function fetchGetMe(): Promise<ResponseApi> {
-	return await axios.get<ResponseApi>(`/users/me`).then(({ data }) => data);
-}
-
-// @ts-ignore
-window.fetchGetMe = fetchGetMe;
