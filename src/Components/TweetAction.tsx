@@ -33,9 +33,9 @@ export const TweetAction: React.FC = (): React.ReactElement => {
         }
     }, [statusTweetAdd])
 
-    const onAddedTweet = (e: React.MouseEvent<HTMLButtonElement>): void => {
-        e.preventDefault()
-        dispatch(fetchAddTweet(text))
+
+    const onAddedTweet = (images: string[]): void => {
+        dispatch(fetchAddTweet({ text, images }))
         setText('')
     }
 

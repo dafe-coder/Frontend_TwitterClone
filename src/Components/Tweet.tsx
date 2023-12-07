@@ -11,6 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { fetchDeleteTweet } from '../redux/slices/Tweets/tweetsSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
+import { ImageList } from './ImageList';
 
 const useStyle = makeStyles((theme) => ({
     tweetItem: {
@@ -34,6 +35,7 @@ export type User = {
     userName: string,
     fullName: string,
     userAvatarUrl: string
+    images?: string[]
 }
 
 interface TweetProps extends ITweet {
@@ -41,7 +43,7 @@ interface TweetProps extends ITweet {
 }
 
 
-export const Tweet: React.FC<TweetProps> = ({ user, text, _id, createdAt }): React.ReactElement => {
+export const Tweet: React.FC<TweetProps> = ({ user, text, _id, createdAt, images }): React.ReactElement => {
     const classes = useStyle()
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
@@ -105,6 +107,7 @@ export const Tweet: React.FC<TweetProps> = ({ user, text, _id, createdAt }): Rea
                                 </Menu>
                             </Grid>
                         </Grid>
+                        {images && <ImageList images={images} />}
                         <Typography variant='body2' gutterBottom sx={{ wordBreak: 'break-world' }}>
                             {text}
                         </Typography>

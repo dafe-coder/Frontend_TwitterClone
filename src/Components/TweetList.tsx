@@ -27,6 +27,7 @@ export const TweetList = (): React.ReactElement => {
 							userAvatarUrl: item.user?.userAvatarUrl,
 							fullName: item.user?.fullName,
 						}}
+						images={item.images}
 					/>
 				))
 			) : (

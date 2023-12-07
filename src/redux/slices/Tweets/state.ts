@@ -18,6 +18,7 @@ export interface ITweet {
 	user: User;
 	text: string;
 	createdAt: string;
+	images?: string[];
 }
 
 export interface TweetsState {

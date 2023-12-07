@@ -14,9 +14,12 @@ export async function fetchTweetsApi(): Promise<TweetsState['items']> {
 	return data;
 }
 
-export async function AddTweetRequest(payload: string): Promise<ITweet> {
+export async function AddTweetRequest(payload: {
+	text: string;
+	images: string[];
+}): Promise<ITweet> {
 	const { data } = await axios
-		.post<IResponse<ITweet>>('/tweets', { text: payload })
+		.post<IResponse<ITweet>>('/tweets', payload)
 		.then(({ data }) => data);
 	return data;
 }

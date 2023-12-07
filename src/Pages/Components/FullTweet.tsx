@@ -9,6 +9,7 @@ import { LoadingState } from '../../redux/slices/Tweet/state';
 import { makeStyles } from '@mui/styles';
 import grey from '@mui/material/colors/grey';
 import format from 'date-fns/format';
+import { ImageList } from '../../Components/ImageList';
 
 const useStyle = makeStyles((theme) => ({
     tweetItem: {
@@ -70,6 +71,7 @@ export const FullTweet: React.FC = (): React.ReactElement => {
                 </Grid>
             </Grid>
             <Grid desktop={12}>
+                {item.images && <ImageList images={item.images} />}
                 <Typography sx={{
                     lineHeight: '24px',
                     fontSize: 17,

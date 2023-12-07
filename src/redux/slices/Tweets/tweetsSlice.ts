@@ -28,7 +28,7 @@ export const fetchTweets = createAsyncThunk(
 
 export const fetchAddTweet = createAsyncThunk(
 	'tweets/addTweetStatus',
-	async (payload: string) => {
+	async (payload: { text: string; images: string[] }) => {
 		const response = await AddTweetRequest(payload);
 		return response;
 	}
@@ -54,6 +54,12 @@ const tweetsSlice = createSlice({
 		},
 		addTweet(state: TweetsState, action: PayloadAction<ITweet>): any {
 			state.items = [action.payload, ...state.items];
+		},
+		setStatusTweetsAdd(
+			state: TweetsState,
+			action: PayloadAction<LoadingState>
+		): any {
+			state.statusTweet = action.payload;
 		},
 	},
 	extraReducers(builder) {
@@ -103,5 +109,5 @@ export const selectTweetsStatusAddTweet = createSelector(
 	(state) => state.statusTweet
 );
 
-export const { setTweets, addTweet } = tweetsSlice.actions;
+export const { setTweets, addTweet, setStatusTweetsAdd } = tweetsSlice.actions;
 export default tweetsSlice.reducer;
